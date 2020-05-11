@@ -1,0 +1,70 @@
+#sol. python
+
+import numpy as np
+import pandas as pd
+
+def computeLanguageError(freq):
+    # Computes the squared error between the letter frequencies given
+    # as input and the letter frequencies of 15 languages stored in the
+    # file letter_frequencies.csv
+
+    # Open the file letter_frequencies.
+    data = pd.read_csv("letter_frequencies.csv")
+
+    # Extract a matrix containing the letter frequencies for the 15
+    # languages and transpose it to yield a size 15 x 26 matrix
+    languageFrequencies = np.array(data.iloc[0:26, 1:16]).T
+
+    # Compute the squared errors. Subtracting a vector from a matrix will
+    # "recycle" the vector, so it is subtracted from each row.
+    E = np.sum((languageFrequencies - freq)**2, axis=1)
+    return E
+
+
+
+
+
+#sol. matlab
+
+
+function E = computeLanguageError(freq)
+% Computes the squared error between the letter frequencies given
+% as input and the letter frequencies of 15 languages stored in the
+% file letter_frequencies.csv
+
+% Open the file letter_frequencies.
+data = readtable('letter_frequencies.csv');
+
+% Extract a 26 x 15 matrix containing the letter frequencies for
+% the 15 languages
+languageFrequencies = data{1:26, 2:16};
+
+% Create a 26 x 15 matrix where each column is the letter
+% frequencies in the text
+textFrequencies = repmat(freq(:), 1, 15);
+
+% Compute the squared errors
+E = sum((languageFrequencies - textFrequencies).^2);
+
+
+
+#sol. R
+
+computeLanguageError <- function(freq) {
+    # Computes the squared error between the letter frequencies given
+    # as input and the letter frequencies of 15 languages stored in the
+    # file letter_frequencies.csv
+
+    # Open the file letter_frequencies.
+    data = read.csv("letter_frequencies.csv")
+
+    # Extract a 26 x 15 matrix containing the letter frequencies for
+    # the 15 languages
+    languageFrequencies = data[1:26, 2:16]
+
+    # Compute the squared errors. Subtracting a vector from a matrix will
+    # "recycle" the vector, so it is subtracted from each column.
+    E = apply((languageFrequencies - freq)^2, 2, sum)
+    return(E)
+}
+
