@@ -1,0 +1,30 @@
+function natoText = textToNato(plainText)
+
+% Define the NATO alphabet code words
+NatoCode = {'Alpha', 'Bravo', 'Charlie', 'Delta', 'Echo', 'Foxtrot', 'Golf', 'Hotel', 'India', ...
+            'Juliet', 'Kilo', 'Lima', 'Mike', 'November', 'Oscar', 'Papa', 'Quebec', 'Romeo', ...
+	    'Sierra', 'Tango', 'Uniform', 'Victor', 'Whiskey', 'Xray', 'Yankee', 'Zulu'};
+
+% Define the corresponding normal alphabet
+Alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+% Create initial empty natoText
+natoText = '';
+
+% Loop over the letters in the input text
+for k = 1:length(plainText)
+    % Current letter
+    Letter = upper(plainText(k));
+    
+    % Find the corresponding NATO code
+    code = NatoCode{Letter == Alphabet};
+
+    % Put code at the end of natoText
+    natoText = [natoText code];
+
+    % Put in a dash, if this is not the last letter
+    if k ~= length(plainText)
+         natoText = [natoText '-'];
+    end
+end
+
